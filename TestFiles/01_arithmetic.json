@@ -1,0 +1,26 @@
+{
+  "rows": 10,
+  "columns": 4,
+  "cells": [
+    { "address": "A1", "expression": "1 + 2" },
+    { "address": "A2", "expression": "2 + 3 * 4" },
+    { "address": "A3", "expression": "(2 + 3) * 4" },
+    { "address": "A4", "expression": "10 - 4 - 3" },
+    { "address": "A5", "expression": "2 ^ 3 ^ 2" },
+    { "address": "A6", "expression": "-2 ^ 2" },
+    { "address": "A7", "expression": "(-2) ^ 2" },
+    { "address": "A8", "expression": "-(5 + 3)" },
+    { "address": "A9", "expression": "+7" },
+    { "address": "A10", "expression": "2 ^ 100" },
+    { "address": "B1", "expression": "7 / 2" },
+    { "address": "B2", "expression": "-7 / 2" },
+    { "address": "B3", "expression": "17 div 5" },
+    { "address": "B4", "expression": "-7 div 2" },
+    { "address": "B5", "expression": "17 mod 5" },
+    { "address": "B6", "expression": "-7 mod 2" },
+    { "address": "B7", "expression": "mod(17, 5)" },
+    { "address": "B8", "expression": "div(17, 5)" },
+    { "address": "B9", "expression": "123456789012345678901234567890 * 10" },
+    { "address": "B10", "expression": "99999999999999999999 + 1" }
+  ]
+}
