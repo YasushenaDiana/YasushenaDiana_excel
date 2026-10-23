@@ -43,7 +43,7 @@
 **Вимоги**
 
 - .NET 10 SDK
-- робоче навантаження MAUI: `dotnet workload install maui`
+- компонент MAUI: `dotnet workload install maui`
 - на macOS також Xcode
 
 **Запуск**

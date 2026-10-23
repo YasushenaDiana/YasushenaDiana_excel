@@ -156,9 +156,9 @@
                 <HorizontalStackLayout>
                     <Button Text="Порахувати" Style="{StaticResource AccentToolButton}" Clicked="CalculateButton_Clicked" />
                     <Button Text="+ Рядок" Style="{StaticResource ToolButton}" Clicked="AddRowButton_Clicked" />
-                    <Button Text="− Рядок" Style="{StaticResource ToolButton}" Clicked="DeleteRowButton_Clicked" />
+                    <Button Text="- Рядок" Style="{StaticResource ToolButton}" Clicked="DeleteRowButton_Clicked" />
                     <Button Text="+ Стовпчик" Style="{StaticResource ToolButton}" Clicked="AddColumnButton_Clicked" />
-                    <Button Text="− Стовпчик" Style="{StaticResource ToolButton}" Clicked="DeleteColumnButton_Clicked" />
+                    <Button Text="- Стовпчик" Style="{StaticResource ToolButton}" Clicked="DeleteColumnButton_Clicked" />
                 </HorizontalStackLayout>
             </VerticalStackLayout>
 
@@ -186,7 +186,7 @@
                         StrokeShape="RoundRectangle 5"
                         VerticalOptions="Center">
                     <Label x:Name="selectedCellLabel"
-                           Text="—"
+                           Text="-"
                            MinimumWidthRequest="36"
                            FontAttributes="Bold"
                            TextColor="{x:Static local:AppColors.AccentDark}"

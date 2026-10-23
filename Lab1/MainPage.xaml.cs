@@ -28,7 +28,7 @@ public partial class MainPage : ContentPage
 		InitializeComponent();
 		BuildGrid();
 		UpdateModeView();
-		ShowStatus("Виберіть клітинку і введіть вираз, наприклад: (A1 + 5) * 2. Допомога — кнопка «Допомога» або меню «Інформація».");
+		ShowStatus("Виберіть клітинку і введіть вираз, наприклад: (A1 + 5) * 2. Допомога - кнопка «Допомога» або меню «Інформація».");
 	}
 
 	private void BuildGrid()
@@ -157,7 +157,7 @@ public partial class MainPage : ContentPage
 		var previous = _selectedAddress;
 		_selectedAddress = null;
 		_formulaTarget = null;
-		selectedCellLabel.Text = "—";
+		selectedCellLabel.Text = "-";
 		textInput.Text = string.Empty;
 
 		if (previous is { } address)
