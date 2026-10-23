@@ -1,0 +1,238 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:Lab1"
+             x:Class="Lab1.MainPage"
+             Title="YasushenaDiana_excel"
+             Shell.NavBarIsVisible="False"
+             BackgroundColor="{x:Static local:AppColors.Paper}">
+
+    <ContentPage.Resources>
+        <Style x:Key="ToolButton" TargetType="Button">
+            <Setter Property="BackgroundColor" Value="{x:Static local:AppColors.Surface}" />
+            <Setter Property="TextColor" Value="{x:Static local:AppColors.AccentDark}" />
+            <Setter Property="BorderColor" Value="{x:Static local:AppColors.AccentMuted}" />
+            <Setter Property="BorderWidth" Value="1" />
+            <Setter Property="CornerRadius" Value="6" />
+            <Setter Property="FontSize" Value="13" />
+            <Setter Property="Padding" Value="12,0" />
+            <Setter Property="HeightRequest" Value="34" />
+            <Setter Property="MinimumHeightRequest" Value="0" />
+            <Setter Property="Margin" Value="0,0,6,0" />
+            <Setter Property="VisualStateManager.VisualStateGroups">
+                <VisualStateGroupList>
+                    <VisualStateGroup x:Name="CommonStates">
+                        <VisualState x:Name="Normal" />
+                        <VisualState x:Name="PointerOver">
+                            <VisualState.Setters>
+                                <Setter Property="BackgroundColor" Value="{x:Static local:AppColors.AccentSoft}" />
+                            </VisualState.Setters>
+                        </VisualState>
+                        <VisualState x:Name="Pressed">
+                            <VisualState.Setters>
+                                <Setter Property="BackgroundColor" Value="{x:Static local:AppColors.AccentMuted}" />
+                            </VisualState.Setters>
+                        </VisualState>
+                        <VisualState x:Name="Disabled" />
+                    </VisualStateGroup>
+                </VisualStateGroupList>
+            </Setter>
+        </Style>
+
+        <Style x:Key="AccentToolButton" TargetType="Button" BasedOn="{StaticResource ToolButton}">
+            <Setter Property="BackgroundColor" Value="{x:Static local:AppColors.Accent}" />
+            <Setter Property="TextColor" Value="{x:Static local:AppColors.Surface}" />
+            <Setter Property="BorderColor" Value="{x:Static local:AppColors.Accent}" />
+            <Setter Property="VisualStateManager.VisualStateGroups">
+                <VisualStateGroupList>
+                    <VisualStateGroup x:Name="CommonStates">
+                        <VisualState x:Name="Normal" />
+                        <VisualState x:Name="PointerOver">
+                            <VisualState.Setters>
+                                <Setter Property="BackgroundColor" Value="{x:Static local:AppColors.AccentDark}" />
+                            </VisualState.Setters>
+                        </VisualState>
+                        <VisualState x:Name="Pressed">
+                            <VisualState.Setters>
+                                <Setter Property="BackgroundColor" Value="{x:Static local:AppColors.AccentDark}" />
+                            </VisualState.Setters>
+                        </VisualState>
+                        <VisualState x:Name="Disabled" />
+                    </VisualStateGroup>
+                </VisualStateGroupList>
+            </Setter>
+        </Style>
+
+        <Style x:Key="GroupLabel" TargetType="Label">
+            <Setter Property="FontSize" Value="11" />
+            <Setter Property="FontAttributes" Value="Bold" />
+            <Setter Property="TextColor" Value="{x:Static local:AppColors.Subtle}" />
+            <Setter Property="CharacterSpacing" Value="1.5" />
+            <Setter Property="Margin" Value="2,0,0,4" />
+        </Style>
+
+        <Style x:Key="SegmentButton" TargetType="Button">
+            <Setter Property="FontSize" Value="13" />
+            <Setter Property="FontAttributes" Value="Bold" />
+            <Setter Property="CornerRadius" Value="6" />
+            <Setter Property="Padding" Value="16,0" />
+            <Setter Property="HeightRequest" Value="28" />
+            <Setter Property="MinimumHeightRequest" Value="0" />
+            <Setter Property="BorderWidth" Value="0" />
+            <Setter Property="VisualStateManager.VisualStateGroups">
+                <VisualStateGroupList>
+                    <VisualStateGroup x:Name="CommonStates">
+                        <VisualState x:Name="Normal" />
+                        <VisualState x:Name="PointerOver" />
+                        <VisualState x:Name="Pressed" />
+                        <VisualState x:Name="Disabled" />
+                    </VisualStateGroup>
+                </VisualStateGroupList>
+            </Setter>
+        </Style>
+    </ContentPage.Resources>
+
+    <ContentPage.MenuBarItems>
+        <MenuBarItem Text="Файл">
+            <MenuFlyoutItem Text="Нова таблиця" Clicked="NewButton_Clicked" />
+            <MenuFlyoutItem Text="Відкрити..." Clicked="ReadButton_Clicked" />
+            <MenuFlyoutItem Text="Зберегти..." Clicked="SaveButton_Clicked" />
+            <MenuFlyoutSeparator />
+            <MenuFlyoutItem Text="Вийти" Clicked="ExitButton_Clicked" />
+        </MenuBarItem>
+        <MenuBarItem Text="Таблиця">
+            <MenuFlyoutItem Text="Порахувати" Clicked="CalculateButton_Clicked" />
+            <MenuFlyoutSeparator />
+            <MenuFlyoutItem Text="Додати рядок" Clicked="AddRowButton_Clicked" />
+            <MenuFlyoutItem Text="Додати стовпчик" Clicked="AddColumnButton_Clicked" />
+            <MenuFlyoutItem Text="Видалити рядок" Clicked="DeleteRowButton_Clicked" />
+            <MenuFlyoutItem Text="Видалити стовпчик" Clicked="DeleteColumnButton_Clicked" />
+        </MenuBarItem>
+        <MenuBarItem Text="Вигляд">
+            <MenuFlyoutItem Text="Режим ВИРАЗ" Clicked="ExpressionMode_Clicked" />
+            <MenuFlyoutItem Text="Режим ЗНАЧЕННЯ" Clicked="ValueMode_Clicked" />
+        </MenuBarItem>
+        <MenuBarItem Text="Інформація">
+            <MenuFlyoutItem Text="Допомога" Clicked="HelpButton_Clicked" />
+            <MenuFlyoutItem Text="Про програму" Clicked="AboutButton_Clicked" />
+        </MenuBarItem>
+    </ContentPage.MenuBarItems>
+
+    <Grid RowDefinitions="Auto,Auto,*,Auto">
+
+        <FlexLayout Grid.Row="0" Wrap="Wrap" Padding="16,12,16,4" AlignItems="End">
+            <VerticalStackLayout Margin="0,0,14,8">
+                <Label Text="РЕЖИМ" Style="{StaticResource GroupLabel}" />
+                <Border Padding="2"
+                        StrokeThickness="1"
+                        Stroke="{x:Static local:AppColors.AccentMuted}"
+                        BackgroundColor="{x:Static local:AppColors.Surface}"
+                        StrokeShape="RoundRectangle 7">
+                    <HorizontalStackLayout Spacing="2">
+                        <Button x:Name="expressionModeButton"
+                                Text="ВИРАЗ"
+                                Style="{StaticResource SegmentButton}"
+                                Clicked="ExpressionMode_Clicked" />
+                        <Button x:Name="valueModeButton"
+                                Text="ЗНАЧЕННЯ"
+                                Style="{StaticResource SegmentButton}"
+                                Clicked="ValueMode_Clicked" />
+                    </HorizontalStackLayout>
+                </Border>
+            </VerticalStackLayout>
+
+            <VerticalStackLayout Margin="0,0,14,8">
+                <Label Text="ФАЙЛ" Style="{StaticResource GroupLabel}" />
+                <HorizontalStackLayout>
+                    <Button Text="Нова" Style="{StaticResource ToolButton}" Clicked="NewButton_Clicked" />
+                    <Button Text="Відкрити" Style="{StaticResource ToolButton}" Clicked="ReadButton_Clicked" />
+                    <Button Text="Зберегти" Style="{StaticResource ToolButton}" Clicked="SaveButton_Clicked" />
+                    <Button Text="Вийти" Style="{StaticResource ToolButton}" Clicked="ExitButton_Clicked" />
+                </HorizontalStackLayout>
+            </VerticalStackLayout>
+
+            <VerticalStackLayout Margin="0,0,14,8">
+                <Label Text="ТАБЛИЦЯ" Style="{StaticResource GroupLabel}" />
+                <HorizontalStackLayout>
+                    <Button Text="Порахувати" Style="{StaticResource AccentToolButton}" Clicked="CalculateButton_Clicked" />
+                    <Button Text="+ Рядок" Style="{StaticResource ToolButton}" Clicked="AddRowButton_Clicked" />
+                    <Button Text="− Рядок" Style="{StaticResource ToolButton}" Clicked="DeleteRowButton_Clicked" />
+                    <Button Text="+ Стовпчик" Style="{StaticResource ToolButton}" Clicked="AddColumnButton_Clicked" />
+                    <Button Text="− Стовпчик" Style="{StaticResource ToolButton}" Clicked="DeleteColumnButton_Clicked" />
+                </HorizontalStackLayout>
+            </VerticalStackLayout>
+
+            <VerticalStackLayout Margin="0,0,0,8">
+                <Label Text="ДОВІДКА" Style="{StaticResource GroupLabel}" />
+                <HorizontalStackLayout>
+                    <Button Text="Допомога" Style="{StaticResource ToolButton}" Clicked="HelpButton_Clicked" />
+                    <Button Text="Про програму" Style="{StaticResource ToolButton}" Clicked="AboutButton_Clicked" />
+                </HorizontalStackLayout>
+            </VerticalStackLayout>
+        </FlexLayout>
+
+        <Border Grid.Row="1"
+                Margin="16,4,16,10"
+                Padding="6"
+                StrokeThickness="1"
+                Stroke="{x:Static local:AppColors.GridLine}"
+                BackgroundColor="{x:Static local:AppColors.Surface}"
+                StrokeShape="RoundRectangle 8">
+            <Grid ColumnDefinitions="Auto,Auto,*" ColumnSpacing="10">
+                <Border Grid.Column="0"
+                        Padding="10,4"
+                        StrokeThickness="0"
+                        BackgroundColor="{x:Static local:AppColors.AccentSoft}"
+                        StrokeShape="RoundRectangle 5"
+                        VerticalOptions="Center">
+                    <Label x:Name="selectedCellLabel"
+                           Text="—"
+                           MinimumWidthRequest="36"
+                           FontAttributes="Bold"
+                           TextColor="{x:Static local:AppColors.AccentDark}"
+                           HorizontalTextAlignment="Center" />
+                </Border>
+                <Label Grid.Column="1"
+                       Text="="
+                       FontSize="18"
+                       FontAttributes="Bold"
+                       TextColor="{x:Static local:AppColors.Accent}"
+                       VerticalOptions="Center" />
+                <Entry x:Name="textInput"
+                       Grid.Column="2"
+                       TextColor="{x:Static local:AppColors.Ink}"
+                       PlaceholderColor="{x:Static local:AppColors.Subtle}"
+                       Placeholder="Виберіть клітинку та введіть вираз, наприклад: (A1 + 5) * 2 ^ 3"
+                       Completed="TextInput_Completed"
+                       Focused="TextInput_Focused"
+                       Unfocused="TextInput_Unfocused" />
+            </Grid>
+        </Border>
+
+        <Border Grid.Row="2"
+                Margin="16,0,16,12"
+                StrokeThickness="1"
+                Stroke="{x:Static local:AppColors.GridLine}"
+                BackgroundColor="{x:Static local:AppColors.Surface}"
+                StrokeShape="RoundRectangle 8">
+            <ScrollView x:Name="gridScroll" Orientation="Both" SizeChanged="GridScroll_SizeChanged">
+                <Grid x:Name="grid"
+                      ColumnSpacing="1"
+                      RowSpacing="1"
+                      HorizontalOptions="Start"
+                      VerticalOptions="Start"
+                      BackgroundColor="{x:Static local:AppColors.GridLine}" />
+            </ScrollView>
+        </Border>
+
+        <Grid Grid.Row="3"
+              BackgroundColor="{x:Static local:AppColors.StatusBack}"
+              Padding="16,8">
+            <Label x:Name="statusLabel"
+                   FontSize="13"
+                   TextColor="{x:Static local:AppColors.StatusText}"
+                   LineBreakMode="WordWrap" />
+        </Grid>
+    </Grid>
+
+</ContentPage>

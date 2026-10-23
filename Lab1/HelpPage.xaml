@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:Lab1"
+             x:Class="Lab1.HelpPage"
+             Title="Допомога"
+             BackgroundColor="{x:Static local:AppColors.Paper}">
+
+    <Grid RowDefinitions="Auto,*,Auto">
+        <Grid Grid.Row="0" BackgroundColor="{x:Static local:AppColors.AccentDark}" Padding="24,14">
+            <Label Text="Допомога"
+                   FontSize="22"
+                   FontAttributes="Bold"
+                   TextColor="{x:Static local:AppColors.Surface}" />
+        </Grid>
+
+        <Border Grid.Row="1"
+                Margin="20,16"
+                Padding="20,16"
+                StrokeThickness="1"
+                Stroke="{x:Static local:AppColors.GridLine}"
+                BackgroundColor="{x:Static local:AppColors.Surface}"
+                StrokeShape="RoundRectangle 8">
+            <ScrollView>
+                <Label x:Name="helpLabel"
+                       FontSize="15"
+                       LineHeight="1.3"
+                       TextColor="{x:Static local:AppColors.Ink}"
+                       LineBreakMode="WordWrap" />
+            </ScrollView>
+        </Border>
+
+        <Button Grid.Row="2"
+                Text="Закрити"
+                Margin="20,0,20,16"
+                HorizontalOptions="End"
+                BackgroundColor="{x:Static local:AppColors.Accent}"
+                TextColor="{x:Static local:AppColors.Surface}"
+                CornerRadius="6"
+                Clicked="CloseButton_Clicked" />
+    </Grid>
+
+</ContentPage>
