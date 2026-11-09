@@ -19,8 +19,4 @@
     </Antlr4>
   </ItemGroup>
 
-  <ItemGroup>
-    <InternalsVisibleTo Include="Lab1.Tests" />
-  </ItemGroup>
-
 </Project>

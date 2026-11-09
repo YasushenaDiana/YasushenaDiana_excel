@@ -6,10 +6,7 @@ public sealed class ExpressionSyntaxException : ExpressionException
         : base($"Синтаксична помилка (позиція {position}): {description}")
     {
         Position = position;
-        Description = description;
     }
 
     public int Position { get; }
-
-    public string Description { get; }
 }

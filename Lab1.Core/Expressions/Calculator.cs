@@ -35,7 +35,4 @@ public sealed class Calculator
 
     public BigInteger Evaluate(ParsedExpression expression, ICellValueProvider cells) =>
         new LabCalculatorVisitor(cells).Visit(expression.Tree);
-
-    public BigInteger Evaluate(string expression, ICellValueProvider cells) =>
-        Evaluate(Parse(expression), cells);
 }

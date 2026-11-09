@@ -60,9 +60,4 @@ public readonly record struct CellAddress(int Row, int Column)
         address = new CellAddress(row - 1, (int)column - 1);
         return true;
     }
-
-    public static CellAddress Parse(string text) =>
-        TryParse(text, out var address)
-            ? address.Value
-            : throw new FormatException($"Некоректна адреса клітинки: '{text}'");
 }
