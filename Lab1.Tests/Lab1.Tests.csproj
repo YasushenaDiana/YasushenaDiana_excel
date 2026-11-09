@@ -22,8 +22,4 @@
     <ProjectReference Include="..\Lab1.Core\Lab1.Core.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <None Include="..\TestFiles\*.json" LinkBase="TestFiles" CopyToOutputDirectory="PreserveNewest" />
-  </ItemGroup>
-
 </Project>
