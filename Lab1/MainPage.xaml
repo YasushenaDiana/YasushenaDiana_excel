@@ -63,6 +63,32 @@
             </Setter>
         </Style>
 
+        <Style x:Key="ExitButton" TargetType="Button" BasedOn="{StaticResource ToolButton}">
+            <Setter Property="BackgroundColor" Value="{x:Static local:AppColors.Danger}" />
+            <Setter Property="TextColor" Value="{x:Static local:AppColors.Surface}" />
+            <Setter Property="BorderColor" Value="{x:Static local:AppColors.Danger}" />
+            <Setter Property="FontAttributes" Value="Bold" />
+            <Setter Property="Margin" Value="0,0,0,8" />
+            <Setter Property="VisualStateManager.VisualStateGroups">
+                <VisualStateGroupList>
+                    <VisualStateGroup x:Name="CommonStates">
+                        <VisualState x:Name="Normal" />
+                        <VisualState x:Name="PointerOver">
+                            <VisualState.Setters>
+                                <Setter Property="BackgroundColor" Value="{x:Static local:AppColors.DangerDark}" />
+                            </VisualState.Setters>
+                        </VisualState>
+                        <VisualState x:Name="Pressed">
+                            <VisualState.Setters>
+                                <Setter Property="BackgroundColor" Value="{x:Static local:AppColors.DangerDark}" />
+                            </VisualState.Setters>
+                        </VisualState>
+                        <VisualState x:Name="Disabled" />
+                    </VisualStateGroup>
+                </VisualStateGroupList>
+            </Setter>
+        </Style>
+
         <Style x:Key="GroupLabel" TargetType="Label">
             <Setter Property="FontSize" Value="11" />
             <Setter Property="FontAttributes" Value="Bold" />
@@ -120,56 +146,63 @@
 
     <Grid RowDefinitions="Auto,Auto,*,Auto">
 
-        <FlexLayout Grid.Row="0" Wrap="Wrap" Padding="16,12,16,4" AlignItems="End">
-            <VerticalStackLayout Margin="0,0,14,8">
-                <Label Text="РЕЖИМ" Style="{StaticResource GroupLabel}" />
-                <Border Padding="2"
-                        StrokeThickness="1"
-                        Stroke="{x:Static local:AppColors.AccentMuted}"
-                        BackgroundColor="{x:Static local:AppColors.Surface}"
-                        StrokeShape="RoundRectangle 7">
-                    <HorizontalStackLayout Spacing="2">
-                        <Button x:Name="expressionModeButton"
-                                Text="ВИРАЗ"
-                                Style="{StaticResource SegmentButton}"
-                                Clicked="ExpressionMode_Clicked" />
-                        <Button x:Name="valueModeButton"
-                                Text="ЗНАЧЕННЯ"
-                                Style="{StaticResource SegmentButton}"
-                                Clicked="ValueMode_Clicked" />
+        <Grid Grid.Row="0" ColumnDefinitions="*,Auto" Padding="16,24,16,4">
+            <FlexLayout Wrap="Wrap" AlignItems="End">
+                <VerticalStackLayout Margin="0,0,14,8">
+                    <Label Text="РЕЖИМ" Style="{StaticResource GroupLabel}" />
+                    <Border Padding="2"
+                            StrokeThickness="1"
+                            Stroke="{x:Static local:AppColors.AccentMuted}"
+                            BackgroundColor="{x:Static local:AppColors.Surface}"
+                            StrokeShape="RoundRectangle 7">
+                        <HorizontalStackLayout Spacing="2">
+                            <Button x:Name="expressionModeButton"
+                                    Text="ВИРАЗ"
+                                    Style="{StaticResource SegmentButton}"
+                                    Clicked="ExpressionMode_Clicked" />
+                            <Button x:Name="valueModeButton"
+                                    Text="ЗНАЧЕННЯ"
+                                    Style="{StaticResource SegmentButton}"
+                                    Clicked="ValueMode_Clicked" />
+                        </HorizontalStackLayout>
+                    </Border>
+                </VerticalStackLayout>
+
+                <VerticalStackLayout Margin="0,0,14,8">
+                    <Label Text="ФАЙЛ" Style="{StaticResource GroupLabel}" />
+                    <HorizontalStackLayout>
+                        <Button Text="Нова" Style="{StaticResource ToolButton}" Clicked="NewButton_Clicked" />
+                        <Button Text="Відкрити" Style="{StaticResource ToolButton}" Clicked="ReadButton_Clicked" />
+                        <Button Text="Зберегти" Style="{StaticResource ToolButton}" Clicked="SaveButton_Clicked" />
                     </HorizontalStackLayout>
-                </Border>
-            </VerticalStackLayout>
+                </VerticalStackLayout>
 
-            <VerticalStackLayout Margin="0,0,14,8">
-                <Label Text="ФАЙЛ" Style="{StaticResource GroupLabel}" />
-                <HorizontalStackLayout>
-                    <Button Text="Нова" Style="{StaticResource ToolButton}" Clicked="NewButton_Clicked" />
-                    <Button Text="Відкрити" Style="{StaticResource ToolButton}" Clicked="ReadButton_Clicked" />
-                    <Button Text="Зберегти" Style="{StaticResource ToolButton}" Clicked="SaveButton_Clicked" />
-                    <Button Text="Вийти" Style="{StaticResource ToolButton}" Clicked="ExitButton_Clicked" />
-                </HorizontalStackLayout>
-            </VerticalStackLayout>
+                <VerticalStackLayout Margin="0,0,14,8">
+                    <Label Text="ТАБЛИЦЯ" Style="{StaticResource GroupLabel}" />
+                    <HorizontalStackLayout>
+                        <Button Text="Порахувати" Style="{StaticResource AccentToolButton}" Clicked="CalculateButton_Clicked" />
+                        <Button Text="+ Рядок" Style="{StaticResource ToolButton}" Clicked="AddRowButton_Clicked" />
+                        <Button Text="- Рядок" Style="{StaticResource ToolButton}" Clicked="DeleteRowButton_Clicked" />
+                        <Button Text="+ Стовпчик" Style="{StaticResource ToolButton}" Clicked="AddColumnButton_Clicked" />
+                        <Button Text="- Стовпчик" Style="{StaticResource ToolButton}" Clicked="DeleteColumnButton_Clicked" />
+                    </HorizontalStackLayout>
+                </VerticalStackLayout>
 
-            <VerticalStackLayout Margin="0,0,14,8">
-                <Label Text="ТАБЛИЦЯ" Style="{StaticResource GroupLabel}" />
-                <HorizontalStackLayout>
-                    <Button Text="Порахувати" Style="{StaticResource AccentToolButton}" Clicked="CalculateButton_Clicked" />
-                    <Button Text="+ Рядок" Style="{StaticResource ToolButton}" Clicked="AddRowButton_Clicked" />
-                    <Button Text="- Рядок" Style="{StaticResource ToolButton}" Clicked="DeleteRowButton_Clicked" />
-                    <Button Text="+ Стовпчик" Style="{StaticResource ToolButton}" Clicked="AddColumnButton_Clicked" />
-                    <Button Text="- Стовпчик" Style="{StaticResource ToolButton}" Clicked="DeleteColumnButton_Clicked" />
-                </HorizontalStackLayout>
-            </VerticalStackLayout>
+                <VerticalStackLayout Margin="0,0,0,8">
+                    <Label Text="ДОВІДКА" Style="{StaticResource GroupLabel}" />
+                    <HorizontalStackLayout>
+                        <Button Text="Допомога" Style="{StaticResource ToolButton}" Clicked="HelpButton_Clicked" />
+                        <Button Text="Про програму" Style="{StaticResource ToolButton}" Clicked="AboutButton_Clicked" />
+                    </HorizontalStackLayout>
+                </VerticalStackLayout>
+            </FlexLayout>
 
-            <VerticalStackLayout Margin="0,0,0,8">
-                <Label Text="ДОВІДКА" Style="{StaticResource GroupLabel}" />
-                <HorizontalStackLayout>
-                    <Button Text="Допомога" Style="{StaticResource ToolButton}" Clicked="HelpButton_Clicked" />
-                    <Button Text="Про програму" Style="{StaticResource ToolButton}" Clicked="AboutButton_Clicked" />
-                </HorizontalStackLayout>
-            </VerticalStackLayout>
-        </FlexLayout>
+            <Button Grid.Column="1"
+                    Text="Вийти"
+                    Style="{StaticResource ExitButton}"
+                    VerticalOptions="End"
+                    Clicked="ExitButton_Clicked" />
+        </Grid>
 
         <Border Grid.Row="1"
                 Margin="16,4,16,10"

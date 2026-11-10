@@ -6,8 +6,9 @@ namespace Lab1.Core.Expressions;
 
 public sealed class LabCalculatorVisitor : LabCalculatorBaseVisitor<BigInteger>
 {
-    public const int MaxExponent = 10_000;
-    public const long MaxResultBits = 1_000_000;
+    public const int MaxDigits = 1000;
+
+    private static readonly BigInteger MaxValue = BigInteger.Pow(10, MaxDigits);
 
     private readonly ICellValueProvider _cells;
 
@@ -20,7 +21,7 @@ public sealed class LabCalculatorVisitor : LabCalculatorBaseVisitor<BigInteger>
         Visit(context.expression());
 
     public override BigInteger VisitNumberExpr(LabCalculatorParser.NumberExprContext context) =>
-        BigInteger.Parse(context.GetText());
+        CheckSize(BigInteger.Parse(context.GetText()));
 
     public override BigInteger VisitCellExpr(LabCalculatorParser.CellExprContext context)
     {
@@ -55,7 +56,7 @@ public sealed class LabCalculatorVisitor : LabCalculatorBaseVisitor<BigInteger>
 
         return context.operatorToken.Type switch
         {
-            LabCalculatorLexer.MULTIPLY => left * right,
+            LabCalculatorLexer.MULTIPLY => CheckSize(left * right),
             LabCalculatorLexer.DIVIDE => Divide(left, right),
             LabCalculatorLexer.MOD => Mod(left, right),
             LabCalculatorLexer.DIV => Div(left, right),
@@ -67,7 +68,7 @@ public sealed class LabCalculatorVisitor : LabCalculatorBaseVisitor<BigInteger>
     {
         var left = Visit(context.expression(0));
         var right = Visit(context.expression(1));
-        return context.operatorToken.Type == LabCalculatorLexer.ADD ? left + right : left - right;
+        return CheckSize(context.operatorToken.Type == LabCalculatorLexer.ADD ? left + right : left - right);
     }
 
     public override BigInteger VisitModDivFunctionExpr(LabCalculatorParser.ModDivFunctionExprContext context)
@@ -107,12 +108,12 @@ public sealed class LabCalculatorVisitor : LabCalculatorBaseVisitor<BigInteger>
 
     public static BigInteger Power(BigInteger value, BigInteger exponent)
     {
-        if (exponent.Sign < 0)
-        {
-            throw new ExpressionEvaluationException("Від'ємний степінь не підтримується: результат не є цілим числом");
-        }
         if (value.IsZero)
         {
+            if (exponent.Sign < 0)
+            {
+                throw new ExpressionEvaluationException("Ділення на нуль: 0 у від'ємному степені");
+            }
             return exponent.IsZero ? BigInteger.One : BigInteger.Zero;
         }
         if (value.IsOne)
@@ -123,16 +124,22 @@ public sealed class LabCalculatorVisitor : LabCalculatorBaseVisitor<BigInteger>
         {
             return exponent.IsEven ? BigInteger.One : BigInteger.MinusOne;
         }
-        if (exponent > MaxExponent)
+        if (exponent.Sign < 0)
         {
-            throw new ExpressionEvaluationException($"Занадто великий степінь (максимум {MaxExponent})");
+            throw new ExpressionEvaluationException("Від'ємний степінь дає дробове число, а програма працює лише з цілими");
         }
-        if (value.GetBitLength() * (long)exponent > MaxResultBits)
+        if ((BigInteger.Abs(value).GetBitLength() - 1) * exponent > MaxDigits * 10 / 3)
         {
-            throw new ExpressionEvaluationException("Результат піднесення до степеня занадто великий");
+            throw TooLarge();
         }
-        return BigInteger.Pow(value, (int)exponent);
+        return CheckSize(BigInteger.Pow(value, (int)exponent));
     }
+
+    private static BigInteger CheckSize(BigInteger value) =>
+        BigInteger.Abs(value) < MaxValue ? value : throw TooLarge();
+
+    private static ExpressionEvaluationException TooLarge() =>
+        new($"Число занадто велике (більше {MaxDigits} цифр)");
 
     private static void EnsureNotZero(BigInteger divisor)
     {

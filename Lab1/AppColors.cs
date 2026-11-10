@@ -17,5 +17,7 @@ public static class AppColors
 	public static readonly Color ErrorBack = Color.FromArgb("#FDE8E6");
 	public static readonly Color StatusBack = Color.FromArgb("#1E2B2A");
 	public static readonly Color StatusText = Color.FromArgb("#E7F3F1");
+	public static readonly Color Danger = Color.FromArgb("#D92D20");
+	public static readonly Color DangerDark = Color.FromArgb("#A51E14");
 	public static readonly Color StatusError = Color.FromArgb("#FFB4A9");
 }
